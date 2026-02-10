@@ -1,6 +1,8 @@
+import { ClerkProvider, SignedIn, SignIn, UserButton } from "@clerk/nextjs";
 import { Navbar } from "./_components/Navbar";
 import { OrgSidebar } from "./_components/OrgSidebar";
 import { Sidebar } from "./_components/Sidebar";
+import ConvexClientProvider from "@/components/providers/ConvexClientProvider";
 
 interface DashboardayoutPage {
   children: React.ReactNode;
@@ -8,20 +10,21 @@ interface DashboardayoutPage {
 
 const DashboardLayout = ({ children }: DashboardayoutPage) => {
   return (
-    <main className="h-full">
-      <Sidebar />
-      <div className="pl-[60px] h-full">
-        <div className="flex gap-x-3 h-full">
-          <OrgSidebar />
-          <div className="h-full flex-1">
-            <Navbar/> {/** Add Navbar */}
-            {children}
+    <ClerkProvider>
+      <main className="h-full">
+        <Sidebar />
+        <div className="pl-[60px] h-full">
+          <div className="flex gap-x-3 h-full">
+            <OrgSidebar />
+            <div className="h-full flex-1">
+              <Navbar /> {/** Add Navbar */}
+              <ConvexClientProvider>{children}</ConvexClientProvider>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </ClerkProvider>
   );
 };
-
 
 export default DashboardLayout;

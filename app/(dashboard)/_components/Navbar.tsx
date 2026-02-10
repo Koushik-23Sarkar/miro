@@ -2,6 +2,10 @@
 
 import {
   OrganizationSwitcher,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
   UserButton,
   useOrganization,
 } from "@clerk/nextjs";
@@ -9,7 +13,7 @@ import { SearchInput } from "./search-input";
 import { InviteButton } from "./invite-button";
 
 export const Navbar = () => {
-  const {organization} = useOrganization();
+  const { organization } = useOrganization();
   return (
     <div className="flex items-center gap-x-4 p-5">
       <div className="hidden lg:flex lg:flex-1">
@@ -42,7 +46,18 @@ export const Navbar = () => {
       </div>
       {organization && <InviteButton />}
 
-      <UserButton />
+      <SignedOut>
+        <SignInButton />
+        <SignUpButton>
+          <button className="bg-[#6c47ff] text-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
+            Sign Up
+          </button>
+        </SignUpButton>
+      </SignedOut>
+      {/* Show the user button when the user is signed in * */}
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
     </div>
   );
 };

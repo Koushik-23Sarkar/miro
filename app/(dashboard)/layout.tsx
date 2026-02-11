@@ -3,6 +3,7 @@ import { Navbar } from "./_components/Navbar";
 import { OrgSidebar } from "./_components/OrgSidebar";
 import { Sidebar } from "./_components/Sidebar";
 import ConvexClientProvider from "@/components/providers/ConvexClientProvider";
+import { ModalProvider } from "@/components/providers/modal-provider";
 
 interface DashboardayoutPage {
   children: React.ReactNode;
@@ -18,7 +19,10 @@ const DashboardLayout = ({ children }: DashboardayoutPage) => {
             <OrgSidebar />
             <div className="h-full flex-1">
               <Navbar /> {/** Add Navbar */}
-              <ConvexClientProvider>{children}</ConvexClientProvider>
+              <ConvexClientProvider>
+                <ModalProvider/>
+                {children}  
+              </ConvexClientProvider>
             </div>
           </div>
         </div>
